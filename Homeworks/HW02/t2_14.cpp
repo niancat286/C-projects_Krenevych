@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <math.h>
 
-
+//remake
 void quadratic() {
     double a,b,c;
     printf("a, b, c for ax^2 + bx + c = 0:\n");

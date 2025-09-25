@@ -8,3 +8,5 @@ int main() {
     printf("y = %.6f\n", y);
     return 0;
 }
+
+//remake

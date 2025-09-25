@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <math.h>
 
+//remake
 
 
 // ж) invsqrt(x, α) = x / sqrt(1 + α x^2)

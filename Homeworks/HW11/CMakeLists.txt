@@ -1,0 +1,2 @@
+add_subdirectory(t11_10)
+add_subdirectory(t11_12d)

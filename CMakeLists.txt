@@ -9,5 +9,8 @@ add_subdirectory(Lab_10_p2)
 add_subdirectory(Lab_10_p3)
 add_subdirectory(Lab_11_task5)
 add_subdirectory(Homeworks)
-
-
+add_subdirectory(Lab_15)
+add_subdirectory(Lab_11)
+add_subdirectory(Lab_11_t02)
+add_subdirectory(Lab_11_task3)
+add_subdirectory(Lab_11_t04)

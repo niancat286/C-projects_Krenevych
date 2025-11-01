@@ -1,0 +1,1 @@
+add_executable(hw11_t10 t10.c records.c)

@@ -1,0 +1,5 @@
+ball 199.50 2 6
+doll 350 3 8
+constructor 480 4 10
+ball 120 1 3
+puzzle 220 5 12

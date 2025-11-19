@@ -1,0 +1,1 @@
+add_executable(task1Lab13 t01.cpp func.cpp)

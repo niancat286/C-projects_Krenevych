@@ -14,12 +14,21 @@ class Board {
 private:
     char grid[BOARD_SIZE][BOARD_SIZE]; // array for board
     Point shipPosition;                // position of the ship
+    bool isValidCoordinate(Point p) const;
+    bool isNeighbor(Point current, Point target) const;
+    bool isCellShot(Point p) const; // check if the cell has already been checked
 public:
     Board();
     void initializeBoard();
 
-    void setShip(Point p);
-    Point getShipPos() const;
+    void setShip(Point p){
+        if (isValidCoordinate(p)) {
+            shipPosition = p;
+        } else {
+            std::cerr << "Помилка: Координати корабля невалідні!\n";
+        }
+    }
+    Point getShipPosition() const {return shipPosition;}
 
     void printBoard(bool showShip) const; // View
 

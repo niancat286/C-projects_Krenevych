@@ -14,6 +14,7 @@ class Board {
 private:
     char grid[BOARD_SIZE][BOARD_SIZE]; // array for board
     Point shipPosition;                // position of the ship
+public:
     bool isValidCoordinate(Point p) const;
     bool isNeighbor(Point current, Point target) const;
     bool isCellShot(Point p) const; // check if the cell has already been checked

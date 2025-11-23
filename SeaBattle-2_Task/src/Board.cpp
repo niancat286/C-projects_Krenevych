@@ -98,3 +98,11 @@ bool Board::moveShip(Point newPos) {
     shipPosition = newPos;
     return true;
 }
+
+
+void Board::makeResult(Point p, char mark) {
+    if (isValidCoordinate(p)) {
+        grid[p.x][p.y] = mark;
+    }
+    //we ignore invalid coordinates
+}

@@ -18,7 +18,7 @@ public:
     bool isValidCoordinate(Point p) const;
     bool isNeighbor(Point current, Point target) const;
     bool isCellShot(Point p) const; // check if the cell has already been checked
-public:
+
     Board();
     void initializeBoard();
 
@@ -36,6 +36,8 @@ public:
     int receiveShot(Point p);   // should be )) Model ---> -1 - missed, distance
 
     bool moveShip(Point newPos);    // movement
+
+    void makeResult(Point p, char mark); //marks cell in grid with correct symbol
 };
 
 

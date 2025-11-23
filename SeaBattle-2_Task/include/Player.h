@@ -32,14 +32,26 @@ public:
 
     void updateEnemyView(Point shot, int resultDistance) {
         if (resultDistance == -1) {
-            // Влучив!
-            // У класі Board треба буде дозволити запис вручну,
-            // або (простіше) просто виведемо це на екран поки що.
-            // Але правильно - мати метод setMark у Board.
-            // Для простоти поки пропустимо складну логіку запису в Board,
-            // зосередимось на логіці.
+            EnemyBoard.makeResult(shot, CELL_SHOT);
+            std::cout << "побачив: ВЛУЧАННЯ! (Корабель потоплено)\n";
+        } else {
+            EnemyBoard.makeResult(shot, CELL_MISS);
+            std::cout << name << " побачив: Промах! Дистанція до цілі: " << resultDistance << "\n";
+
         }
-        // Тут буде логіка запису на enemyView пізніше
+    }
+
+    void showNotes() const {
+        std::cout << "\n=== Нотатки гравця " << name << " (enemyView) ===\n";
+        EnemyBoard.printBoard(false);
+        std::cout << "========================================\n";
+    }
+
+    void ShowMyBoard() const {
+        std::cout << "\n=== Дошка гравця " << name << " (myBoard) ===\n";
+        MyBoard.printBoard(true); // showShip = true, to see youe ship
+        std::cout << "=================================\n";
+
     }
 };
 

@@ -8,7 +8,6 @@
 
 #pragma once
 #include "Player.h"
-#include "Board.h"
 #include "../src/Board.cpp"
 
 
@@ -19,18 +18,18 @@ public:
     Point makeShot() override {
         int x, y;
 
-        // Показуємо гравцю його нотатки перед пострілом
+        // show player their notes before shot
         std::cout << "\n=== Ваші нотатки, " << name << " ===\n";
-        EnemyBoard.printBoard(false); // Відображаємо карту ворога (без корабля)
+        EnemyBoard.printBoard(false); // show map of enemy without their ship
         std::cout << "=================================\n";
 
         while (true) {
             std::cout << name << ", введи координати пострілу (рядок X, стовпець Y): ";
 
-            // --- 1. Введення даних ---
+            // input data
             std::cin >> x >> y;
 
-            // --- 2. Перевірка помилок вводу ---
+            // check errors
             if (std::cin.fail()) {
                 std::cout << "Помилка вводу. Будь ласка, вводьте лише цілі числа.\n";
                 std::cin.clear(); // Скидаємо прапор помилки
@@ -38,23 +37,22 @@ public:
                 continue; // Починаємо цикл спочатку
             }
 
-            // --- 3. Перевірка валідності координат ---
+            // are valid coords
             Point shotPoint = {x, y};
 
-            // Викликаємо метод isValidCoordinate через об'єкт enemyView
-            // (Припускаємо, що isValidCoordinate було реалізовано в Board.cpp)
+            // isValidCoordinate in EnemyBoard
             if (!EnemyBoard.isValidCoordinate(shotPoint)) {
                 std::cout << "Неправильні координати, вони поза межами поля (" << BOARD_SIZE << "x" << BOARD_SIZE << "). Спробуй ще раз.\n";
-                continue; // Починаємо цикл спочатку
+                continue;
             }
 
-            // --- 4. Перевірка, чи сюди вже стріляли ---
+            // check if shot was in this cell
             if (EnemyBoard.isCellShot(shotPoint)) {
                 std::cout << "Увага! Ти вже стріляв сюди. Спробуй іншу клітинку.\n";
                 continue;
             }
 
-            // --- 5. Успішне введення ---
+            // success
             return shotPoint;
         }
     }

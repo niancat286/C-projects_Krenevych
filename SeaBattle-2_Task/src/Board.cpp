@@ -1,10 +1,9 @@
 //
 // Created by Yaroslava Krenevych on 19.11.2025.
 //
-
+#pragma once
 #include "../include/Board.h"
 #include <iostream>
-#include <algorithm> // for std::fill
 
 
 Board::Board() {
@@ -105,4 +104,16 @@ void Board::makeResult(Point p, char mark) {
         grid[p.x][p.y] = mark;
     }
     //we ignore invalid coordinates
+}
+
+bool Board::isShipSunk() const {
+    if (shipPosition.x == -1) {
+        return false;
+    }
+
+    if (grid[shipPosition.x][shipPosition.y] == CELL_SHOT) {
+        return true;
+    }
+
+    return false;
 }

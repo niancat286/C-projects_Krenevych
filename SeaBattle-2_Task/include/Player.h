@@ -42,14 +42,14 @@ public:
     }
 
     void showNotes() const {
-        std::cout << "\n=== Нотатки гравця " << name << " (enemyView) ===\n";
+        std::cout << "\n=== Нотатки гравця " << name << " (EnemyBoard) ===\n";
         EnemyBoard.printBoard(false);
         std::cout << "========================================\n";
     }
 
     void ShowMyBoard() const {
         std::cout << "\n=== Дошка гравця " << name << " (myBoard) ===\n";
-        MyBoard.printBoard(true); // showShip = true, to see youe ship
+        MyBoard.printBoard(true); // showShip = true, to see your ship
         std::cout << "=================================\n";
 
     }

@@ -2,8 +2,9 @@
 // Created by Yaroslava Krenevych on 23.11.2025.
 //
 
-
+#pragma once
 #include "../include/RandomBot.h"
+#include <vector>
 
 std::random_device rd;
 std::mt19937 generator(rd());

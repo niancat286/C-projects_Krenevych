@@ -70,9 +70,4 @@ public:
 };
 
 
-
-
-
-
-
 #endif //C_PROJECTS_KRENEVYCH_HUMANPLAYER_H

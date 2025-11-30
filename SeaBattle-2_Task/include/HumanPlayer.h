@@ -58,6 +58,9 @@ public:
     }
 
     Point chooseMove() override {
+
+        ShowMyBoard();
+
         int x, y;
         Point current = MyBoard.getShipPosition();
         std::cout << "Твій корабель зараз у (" << current.x << ", " << current.y << ")\n";

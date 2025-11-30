@@ -2,6 +2,7 @@
 // Created by Yaroslava Krenevych on 23.11.2025.
 //
 #pragma once
+#include <cstdlib>
 #include "../include/Game.h"
 
 void clearScreen() {
@@ -13,15 +14,25 @@ void clearScreen() {
 #endif
 }
 
+void clearScreen_ANSI() {
+    // ANSI Escape Code для очищення екрана та переміщення курсора у верхній лівий кут
+    std::cout << "\033[2J\033[1;1H";
+}
+
 void Game::setupPlayers() {
     std::cout << "Оберіть режим гри:\n";
     std::cout << "1: Людина проти Випадкового Бота\n";
+    std::cout << "2: Людина проти Людини\n";
 
     int choice;
     std::cin >> choice;
     if (choice == 1) {
         player1 = new HumanPlayer("Гравець 1 (Людина)");
         player2 = new RandomBot("Гравець 2 (Бот)");
+    }
+    else if (choice == 2) {
+        player1 = new HumanPlayer("Гравець 1 (Людина)");
+        player2 = new HumanPlayer("Гравець 2 (Людина)");
     }
     current_player = player1;
 }
@@ -33,19 +44,31 @@ Game::~Game() {
 
 
 void Game::placeShips() {
-    std::cout << "\n--- Розміщення корабля 1" << player1->getName() << " ---\n";
+    std::cout << "\n--- Розміщення корабля 1 " << player1->getName() << " ---\n";
     Point p1Pos = player1->chooseMove();
     player1->MyBoard.setShip(p1Pos);
 
-    std::cout << "\n--- Розміщення корабля 2" << player2->getName() << " ---\n";
+    // !!! Очищення екрана між гравцями !!!
+    if (dynamic_cast<HumanPlayer*>(player2)) {
+        clearScreen();
+        std::cout << "Гравцю 1, відверніться! Гравцю 2, натисніть ENTER для розміщення.\n";
+        std::cin.ignore(1000, '\n');
+        std::cin.get();
+    }
+
+    std::cout << "\n--- Розміщення корабля 2 " << player2->getName() << " ---\n";
     Point p2Pos = player2->chooseMove();
-    player2->EnemyBoard.setShip(p2Pos);
+    player2->MyBoard.setShip(p2Pos);
 
     std::cout << "Розміщення завершено" << std::endl;
-
+    /*
     if (dynamic_cast<HumanPlayer*>(player1)) {
         player1->ShowMyBoard();
     }
+    if (dynamic_cast<HumanPlayer*>(player2)) {
+        player2->ShowMyBoard();
+    }
+    */
 
 }
 
@@ -65,7 +88,10 @@ void Game::runGame() {
     Player* shooter = player1;
     Player* target = player2;
 
-    std::cout << "Гра почалася!" << std::endl;
+    std::cout << "Гра почалася! Натисність Enter, щоб продовжити" << std::endl;
+    std::cin.ignore(1000, '\n');
+    std::cin.get();
+
 
     while (true) {
         clearScreen();
@@ -80,8 +106,7 @@ void Game::runGame() {
             std::cout << "************************************\n";
             break;
         }
-
-        handleMove(target);
+        handleMove(shooter);
         switchPlayers();
 
         std::swap(shooter, target);
@@ -106,8 +131,8 @@ void Game::handleMove(Player* player) {
             std::cout << player->getName() << " не зміг перемістити корабель" << std::endl;
         }
 
-        if (dynamic_cast<HumanPlayer*>(player)) {
+        /*if (dynamic_cast<HumanPlayer*>(player)) {
             player->ShowMyBoard();
-        }
+        }*/
     }
 }

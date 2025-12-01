@@ -17,6 +17,7 @@ const char CELL_SHIP = 'S';
 const char CELL_SHOT = 'X';
 const char CELL_MISS = 'O';
 
+const int MAX_ATTEMPTS = 3; //limit for mistakes during shots or movement
 
 struct Point {      /*coordinates struct*/
     int x;

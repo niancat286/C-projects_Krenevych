@@ -23,38 +23,36 @@ public:
         EnemyBoard.printBoard(false); // show map of enemy without their ship
         std::cout << "=================================\n";
 
-        while (true) {
-            std::cout << name << ", введи координати пострілу (рядок X, стовпець Y): ";
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; ++attempt) {
+            std::cout << name << ", введи координати пострілу (X Y). Спроба "
+                      << attempt << "/" << MAX_ATTEMPTS << ": ";
 
-            // input data
-            std::cin >> x >> y;
-
-            // check errors
-            if (std::cin.fail()) {
-                std::cout << "Помилка вводу. Будь ласка, вводьте лише цілі числа.\n";
-                std::cin.clear(); // Скидаємо прапор помилки
-                std::cin.ignore(10000, '\n'); // Очищуємо буфер
-                continue; // Починаємо цикл спочатку
+            if (!(std::cin >> x >> y)) {
+                std::cout << "ПОМИЛКА: Вводьте лише числа. \n";
+                std::cin.clear();
+                std::cin.ignore(10000, '\n');
+                continue;
             }
 
-            // are valid coords
             Point shotPoint = {x, y};
 
-            // isValidCoordinate in EnemyBoard
             if (!EnemyBoard.isValidCoordinate(shotPoint)) {
-                std::cout << "Неправильні координати, вони поза межами поля (" << BOARD_SIZE << "x" << BOARD_SIZE << "). Спробуй ще раз.\n";
+                std::cout << "ПОМИЛКА: Координати поза межами поля.\n";
                 continue;
             }
 
-            // check if shot was in this cell
             if (EnemyBoard.isCellShot(shotPoint)) {
-                std::cout << "Увага! Ти вже стріляв сюди. Спробуй іншу клітинку.\n";
+                std::cout << "ПОМИЛКА: Ти вже стріляв сюди.\n";
                 continue;
             }
 
-            // success
             return shotPoint;
         }
+
+        // Якщо всі спроби вичерпано
+        std::cerr << "\nКРИТИЧНА ПОМИЛКА: Вичерпано " << MAX_ATTEMPTS
+                  << " спроб для вводу. Гравець " << name << " пропускає хід стрільби.\n";
+        return {-1, -1};
     }
 
     Point chooseMove() override {
@@ -63,10 +61,43 @@ public:
 
         int x, y;
         Point current = MyBoard.getShipPosition();
-        std::cout << "Твій корабель зараз у (" << current.x << ", " << current.y << ")\n";
-        std::cout << name << ", введи нові координати для руху (X Y): ";
-        std::cin >> x >> y;
-        return {x, y};
+        for (int attempt = 1; attempt <= MAX_ATTEMPTS; ++attempt) {
+
+            std::cout << "\nТвій корабель зараз у (" << current.x << ", " << current.y << ")\n";
+            std::cout << name << ", введи нові координати для руху (X Y). Спроба "
+                      << attempt << "/" << MAX_ATTEMPTS << ": ";
+
+            if (!(std::cin >> x >> y)) {
+                std::cout << "ПОМИЛКА: Вводьте лише числа. \n";
+                std::cin.clear();
+                std::cin.ignore(10000, '\n');
+                continue;
+            }
+
+            Point newPos = {x, y};
+
+            if (!MyBoard.isValidCoordinate(newPos)) {
+                std::cout << "ПОМИЛКА: Координати поза межами поля.\n";
+                continue;
+            }
+
+            if (!MyBoard.isNeighbor(current, newPos)) {
+                std::cout << "ПОМИЛКА: Рух можливий лише на сусідню клітинку (N8/N4).\n";
+                continue;
+            }
+
+            if (MyBoard.isCellShot(newPos)) {
+                std::cout << "ПОМИЛКА: Не можна рухатись у клітинку, по якій стріляли.\n";
+                continue;
+            }
+
+            return newPos;
+        }
+
+        std::cerr << "\nКРИТИЧНА ПОМИЛКА: Вичерпано " << MAX_ATTEMPTS
+                  << " спроб для вводу руху. Корабель " << name << " залишається на місці.\n";
+
+        return current;
     }
 };
 

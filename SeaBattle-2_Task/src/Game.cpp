@@ -43,24 +43,51 @@ Game::~Game() {
 }
 
 
+Point generateRandomPoint() {
+    // BOARD_SIZE - константа, що визначає розмір поля (наприклад, 10)
+    int x = rand() % BOARD_SIZE;
+    int y = rand() % BOARD_SIZE;
+    return {x, y};
+}
+
+
 void Game::placeShips() {
     std::cout << "\n--- Розміщення корабля 1 " << player1->getName() << " ---\n";
     Point p1Pos = player1->chooseMove();
     player1->MyBoard.setShip(p1Pos);
 
+    if (p1Pos.x == -1 && p1Pos.y == -1) {
+        p1Pos = generateRandomPoint();
+        std::cout << "Позицію призначено випадково в ("
+                  << p1Pos.x << ", " << p1Pos.y << ").\n";
+    }
+
+    player1->MyBoard.setShip(p1Pos);
+
     // !!! Очищення екрана між гравцями !!!
     if (dynamic_cast<HumanPlayer*>(player2)) {
-        clearScreen();
+        //clearScreen();
         std::cout << "Гравцю 1, відверніться! Гравцю 2, натисніть ENTER для розміщення.\n";
         std::cin.ignore(1000, '\n');
         std::cin.get();
+        clearScreen();
     }
 
     std::cout << "\n--- Розміщення корабля 2 " << player2->getName() << " ---\n";
     Point p2Pos = player2->chooseMove();
     player2->MyBoard.setShip(p2Pos);
 
+
+    if (p2Pos.x == -1 && p2Pos.y == -1) {
+        p2Pos = generateRandomPoint();
+        std::cout << "Позицію призначено випадково в ("
+                  << p2Pos.x << ", " << p2Pos.y << ").\n";
+    }
+
+    player2->MyBoard.setShip(p2Pos);
+
     std::cout << "Розміщення завершено" << std::endl;
+
     /*
     if (dynamic_cast<HumanPlayer*>(player1)) {
         player1->ShowMyBoard();
@@ -97,6 +124,17 @@ void Game::runGame() {
         clearScreen();
         std::cout << "\n*** ХІД: " << shooter->getName() << " ***" << std::endl;
         Point shot = shooter->makeShot();
+
+        if (shot.x == -1 && shot.y == -1) {
+            std::cout << "\n======================================\n";
+            std::cout << "Гравець " << shooter->getName() << " пропустив хід стрільби.\n";
+            std::cout << "======================================\n";
+
+            switchPlayers();
+            std::swap(shooter, target);
+            continue;
+        }
+
         handleShot(shooter, target, shot);
 
 

@@ -23,6 +23,7 @@ void Game::setupPlayers() {
     std::cout << "Оберіть режим гри:\n";
     std::cout << "1: Людина проти Випадкового Бота\n";
     std::cout << "2: Людина проти Людини\n";
+    std::cout << "3: Людина проти Розумного Бота\n";
 
     int choice;
     std::cin >> choice;
@@ -34,8 +35,14 @@ void Game::setupPlayers() {
         player1 = new HumanPlayer("Гравець 1 (Людина)");
         player2 = new HumanPlayer("Гравець 2 (Людина)");
     }
+    else if (choice == 3) {
+        player1 = new HumanPlayer("Гравець 1 (Людина)");
+        player2 = new SmartBot("Гравець 2 (Бот)");
+    }
+
     current_player = player1;
 }
+
 
 Game::~Game() {
     delete player1;
@@ -127,7 +134,7 @@ void Game::runGame() {
 
         if (shot.x == -1 && shot.y == -1) {
             std::cout << "\n======================================\n";
-            std::cout << "Гравець " << shooter->getName() << " пропустив хід стрільби.\n";
+            std::cout << shooter->getName() << " пропустив хід стрільби.\n";
             std::cout << "======================================\n";
 
             switchPlayers();
@@ -140,21 +147,44 @@ void Game::runGame() {
 
         if (target->MyBoard.isShipSunk()) {
             std::cout << "\n************************************\n";
-            std::cout << "*** ПЕРЕМОГА! Гравець " << shooter->getName() << " виграв! ***" << std::endl;
+            std::cout << "*** ПЕРЕМОГА! " << shooter->getName() << " виграв! ***" << std::endl;
             std::cout << "************************************\n";
             break;
         }
-        handleMove(shooter);
+
+        std::cout << current_player->getName() << ", відверніться! Натисніть ENTER для продовження.\n";
+        std::cin.ignore(1000, '\n');
+        std::cin.get();
+        clearScreen();
+
+        handleMove(target);
+
+        SmartBot* smartShooter = dynamic_cast<SmartBot*>(shooter);
+
+        if (smartShooter) {
+            // Якщо SmartBot є активним гравцем (shooter),
+            // він має врахувати, що ціль (target) щойно змінила позицію.
+            smartShooter->show_expand(); // Викликаємо розмиття (N8)
+        }
+
         switchPlayers();
 
         std::swap(shooter, target);
+
+
     }
 }
 
 void Game::handleShot(Player* shooter, Player* target, Point shot) {
     int res_dist = target->MyBoard.receiveShot(shot);
     shooter->updateEnemyView(shot, res_dist);
+
+    SmartBot* smartShooter = dynamic_cast<SmartBot*>(shooter);
+    if (smartShooter && res_dist != -1) {
+        smartShooter->show_filter(shot, res_dist);
+    }
 }
+
 
 void Game::handleMove(Player* player) {
     if (!player->MyBoard.isShipSunk()) {

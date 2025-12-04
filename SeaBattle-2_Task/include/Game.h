@@ -10,6 +10,7 @@
 #include "Player.h"     // basic class
 #include "HumanPlayer.h"// for init
 #include "../src/RandomBot.cpp"  // for init
+#include "../src/SmartBot.cpp"
 #include <iostream>
 #include <string>
 

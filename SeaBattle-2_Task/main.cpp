@@ -2,10 +2,14 @@
 // Created by Yaroslava Krenevych on 19.11.2025.
 //
 
-#include "src/Game.cpp"
+#pragma once
 
+#include "src/Game.cpp"
+#include <ctime>
+#include <cstdlib>
 
 int main() {
+    srand(time(NULL));
     std::cout << "Ласкаво просимо у гру МОРСЬКИЙ БІЙ (Мобільний Корабель)!\n";
     std::cout << "Поле: " << BOARD_SIZE << "x" << BOARD_SIZE << "\n";
     std::cout << "Відстань розраховується за Манхеттенською метрикою (L1).\n" << std::endl;

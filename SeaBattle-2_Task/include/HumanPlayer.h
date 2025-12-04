@@ -81,11 +81,13 @@ public:
                 continue;
             }
 
-            if (!MyBoard.isNeighbor(current, newPos)) {
-                std::cout << "ПОМИЛКА: Рух можливий лише на сусідню клітинку (N8/N4).\n";
-                continue;
-            }
 
+            if (current.x >= 0 && current.y >= 0) {
+                if (!MyBoard.isNeighbor(current, newPos)) {
+                    std::cout << "ПОМИЛКА: Рух можливий лише на сусідню клітинку (N8).\n";
+                    continue;
+                }
+            }
             if (MyBoard.isCellShot(newPos)) {
                 std::cout << "ПОМИЛКА: Не можна рухатись у клітинку, по якій стріляли.\n";
                 continue;

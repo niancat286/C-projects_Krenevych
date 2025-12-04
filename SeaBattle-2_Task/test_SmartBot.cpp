@@ -4,7 +4,6 @@
 
 #pragma once
 
-#include "include/SmartBot.h"
 #include "src/SmartBot.cpp"
 
 #include <ctime>
@@ -66,10 +65,10 @@ void runSmartTests() {
     // Викликаємо розмиття
     SBot.show_expand();
 
-    bool isBlockedFound = isPointInCandidates(SBot.getCandidates(), blockedCell);
+    bool isBlockedFound = SBot.isPointInCandidates(SBot.getCandidates(), blockedCell);
 
     Point validNeighbor = {3, 5};
-    bool isValidNeighborFound = isPointInCandidates(SBot.getCandidates(), validNeighbor);
+    bool isValidNeighborFound = SBot.isPointInCandidates(SBot.getCandidates(), validNeighbor);
 
     if (!isBlockedFound && isValidNeighborFound) {
         std::cout << "Успіх! Обстріляна клітинка (" << blockedCell.x << ", "

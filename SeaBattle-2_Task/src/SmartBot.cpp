@@ -2,11 +2,13 @@
 // Created by Yaroslava Krenevych on 03.12.2025.
 //
 
+#pragma once
+
 #include "../include/SmartBot.h"
 #include <set>
 
 
-bool isPointInCandidates(const std::vector<Point>& candidates, Point target) {
+bool SmartBot::isPointInCandidates(const std::vector<Point>& candidates, Point target) {
     return std::find(candidates.begin(), candidates.end(), target) != candidates.end();
 }
 

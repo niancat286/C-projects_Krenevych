@@ -48,6 +48,8 @@ public:
         initializeCandidates();
     }
 
+    bool isPointInCandidates(const std::vector<Point>& candidates, Point target);
+
 };
 
 

@@ -16,3 +16,6 @@ add_subdirectory(Lab_11_task3)
 add_subdirectory(Lab_11_t04)
 add_subdirectory(Lab_13)
 add_subdirectory(Lab_17)
+
+
+add_subdirectory(SeaBattle-2_Task)

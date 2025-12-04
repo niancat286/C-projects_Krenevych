@@ -2,9 +2,8 @@
 // Created by Yaroslava Krenevych on 19.11.2025.
 //
 
-#pragma once
 
-#include "src/Game.cpp"
+#include "include/Game.h"
 #include <ctime>
 #include <cstdlib>
 

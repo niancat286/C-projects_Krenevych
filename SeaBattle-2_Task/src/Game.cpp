@@ -1,7 +1,6 @@
 //
 // Created by Yaroslava Krenevych on 23.11.2025.
 //
-#pragma once
 #include <cstdlib>
 #include "../include/Game.h"
 

@@ -3,7 +3,8 @@
 //
 
 #include <iostream>
-#include "src/Board.cpp" // Включаємо клас Board
+#include "include/Board.h" // Включаємо клас Board
+
 
 // Функція для запуску всіх тестів
 void runBoardTests() {

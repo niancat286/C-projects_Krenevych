@@ -2,10 +2,9 @@
 // Created by Yaroslava Krenevych on 23.11.2025.
 //
 
-
 #include <iostream>
 #include <vector>
-#include "src/RandomBot.cpp"
+#include "include/RandomBot.h"
 
 
 void testcase1() {

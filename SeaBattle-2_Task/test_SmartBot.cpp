@@ -2,9 +2,8 @@
 // Created by Yaroslava Krenevych on 04.12.2025.
 //
 
-#pragma once
 
-#include "src/SmartBot.cpp"
+#include "include/SmartBot.h"
 
 #include <ctime>
 #include <cstdlib>

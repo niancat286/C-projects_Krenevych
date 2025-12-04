@@ -8,7 +8,7 @@
 #pragma once
 #include <string>
 #include <vector>
-#include "../src/Board.cpp"
+#include "Board.h"
 #include "Config.h"
 
 class Player {

@@ -33,7 +33,7 @@ struct Point {      /*coordinates struct*/
 /*manh. distance method*/
 // |x1 - x2| + |y1 - y2|
 
-int manhattanDistance(Point p1, Point p2) {
+inline int manhattanDistance(Point p1, Point p2) {
     return std::abs(p1.x - p2.x) + std::abs(p1.y - p2.y);
 }
 

@@ -8,7 +8,7 @@
 
 #pragma once
 #include "Player.h"
-#include "../src/Board.cpp"
+#include "Board.h"
 
 
 class HumanPlayer : public Player {
